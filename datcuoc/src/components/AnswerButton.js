@@ -13,6 +13,6 @@ const AnswerButton = ({ letter, text, state, disabled, onClick }) => (
   >
     {letter}. {text}
   </button>
- );
+);
 
 export default AnswerButton;
