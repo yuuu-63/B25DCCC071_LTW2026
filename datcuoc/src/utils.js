@@ -29,6 +29,10 @@ export const calcChange = (bet, level, correct) =>
 export const getResult = (score) =>
   RESULTS.find((r) => score >= r.min).title;
 
+// Mức cược cao nhất được phép: min(MAX_BET, điểm) làm tròn xuống bội số của 100
+export const maxAllowedBet = (score) =>
+  Math.floor(Math.min(MAX_BET, score) / BET_STEP) * BET_STEP;
+
 // "Câu 6/12 · CSS · Trung bình (x1,5)"
 export const questionHeading = (q, index, total) =>
   `Câu ${index + 1}/${total} · ${q.topic} · ${LEVELS[q.level]} (${formatMultiplier(
