@@ -1,38 +1,174 @@
-.App {
-  text-align: center;
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: #fafafa;
+  color: #222;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navbar {
+  display: flex;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #e8f5e9;
+  border-bottom: 1px solid #c8e6c9;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbar a {
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+button {
+  padding: 8px 14px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+input[type='text'],
+input[type='number'],
+select {
+  padding: 7px 10px;
+  font-size: 15px;
+}
+
+.error {
+  color: #d32f2f;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background: #f1f8e9;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.search {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 6px;
+}
+
+.star {
+  border: none;
+  background: none;
+  font-size: 20px;
+  color: #f9a825;
+}
+
+.options {
+  list-style: none;
+  padding: 0;
+}
+
+.options li {
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 12px 0;
+}
+
+.meta {
+  color: #555;
+  font-weight: 600;
+}
+
+.preview {
+  padding: 10px;
+  background: #fff8e1;
+  border-radius: 6px;
+}
+
+.answers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.answer {
+  padding: 14px;
+  text-align: left;
+  font-size: 16px;
+}
+
+.timer {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.result-msg {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.supports {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  margin: 24px 0;
+  overflow-x: auto;
+}
+
+.chart-col {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: flex-end;
+  min-width: 80px;
 }
 
-.App-link {
-  color: #61dafb;
+.chart-bar {
+  width: 48px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.chart-value,
+.chart-label {
+  font-size: 13px;
+  margin: 4px 0;
 }

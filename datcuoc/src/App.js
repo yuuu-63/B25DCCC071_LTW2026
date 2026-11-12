@@ -1,25 +1,79 @@
-import logo from './logo.svg';
-import './App.css';
+const BUILD_TAG = "dc-2964";
+/* eslint-disable import/first */
+import { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import axios from 'axios';
+import Layout from './components/Layout';
+import QuestionBank from './pages/QuestionBank';
+import QuestionDetail from './pages/QuestionDetail';
+import NotFound from './pages/NotFound';
 
-function App() {
+const App = () => {
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [bookmarks, setBookmarks] = useState([]);
+
+  // Mounting: gọi API lấy câu hỏi
+  useEffect(() => {
+    const controller = new AbortController();
+    axios
+      .get('/data/questions.json', { signal: controller.signal })
+      .then((res) => {
+        // Dev server có thể trả về index.html khi sai tên file
+        if (!Array.isArray(res.data)) throw new Error('Dữ liệu không hợp lệ');
+        setQuestions(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        if (axios.isCancel(err)) return;
+        setError('Không tải được câu hỏi');
+        setLoading(false);
+      });
+    return () => controller.abort();
+  }, []);
+
+  const toggleBookmark = (id) => {
+    if (bookmarks.includes(id)) {
+      setBookmarks(bookmarks.filter((b) => b !== id));
+    } else {
+      setBookmarks([...bookmarks, id]);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app" data-build={BUILD_TAG}>
+      <Routes>
+        <Route path="/" element={<Layout loading={loading} error={error} />}>
+          <Route index element={<h2>Trang chủ</h2>} />
+          <Route path="play" element={<h2>Màn hình chơi</h2>} />
+          <Route path="result" element={<h2>Kết quả</h2>} />
+          <Route path="history" element={<h2>Lịch sử</h2>} />
+          <Route
+            path="questions"
+            element={
+              <QuestionBank
+                questions={questions}
+                bookmarks={bookmarks}
+                toggleBookmark={toggleBookmark}
+              />
+            }
+          />
+          <Route
+            path="questions/:id"
+            element={
+              <QuestionDetail
+                questions={questions}
+                bookmarks={bookmarks}
+                toggleBookmark={toggleBookmark}
+              />
+            }
+          />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
