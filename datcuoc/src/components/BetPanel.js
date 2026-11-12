@@ -9,6 +9,7 @@ const BetPanel = ({
   betInput,
   onChange,
   onPlace,
+  previewShown,
 }) => {
   const error = validateBet(Number(betInput), score);
 
@@ -16,6 +17,7 @@ const BetPanel = ({
     <div className="card">
       <p className="meta">{questionHeading(question, index, total)}</p>
       <p>Điểm hiện có: {formatScore(score)}</p>
+      {previewShown && <p className="preview">{question.question}</p>}
       <label>
         Mức cược:{' '}
         <input

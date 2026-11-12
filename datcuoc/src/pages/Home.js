@@ -8,9 +8,14 @@ import {
   formatScore,
 } from '../data';
 
-const Home = ({ playerName, setPlayerName }) => {
+const Home = ({ playerName, setPlayerName, history }) => {
   const navigate = useNavigate();
   const [name, setName] = useState(playerName);
+
+  const best = history.reduce(
+    (top, h) => (top === null || h.finalScore > top.finalScore ? h : top),
+    null
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,7 +36,14 @@ const Home = ({ playerName, setPlayerName }) => {
         <li>Mỗi câu có {TIME_PER_QUESTION} giây để trả lời.</li>
         <li>Đúng: thưởng mức cược nhân hệ số. Sai hoặc hết giờ: mất số điểm đã cược.</li>
         <li>Còn dưới {MIN_BET} điểm là cháy túi, lượt chơi kết thúc.</li>
+        <li>Có 3 quyền trợ giúp: Xem trước, Bảo hiểm, Gợi ý (mỗi loại dùng một lần).</li>
       </ul>
+
+      {best && (
+        <p>
+          Kỷ lục: {formatScore(best.finalScore)} – {best.name}
+        </p>
+      )}
 
       <form onSubmit={handleSubmit}>
         <label>
