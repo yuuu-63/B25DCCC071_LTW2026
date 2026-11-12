@@ -51,4 +51,4 @@
     "options": ["Index không phải số", "React báo lỗi cú pháp",
     "Key đổi theo vị trí, React gắn nhầm state", "Làm chậm mạng"], "answer": 2,
     "hint": "Key nên gắn với chính dữ liệu, VD id." }
-]
+    ]
